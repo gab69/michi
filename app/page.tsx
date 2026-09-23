@@ -150,14 +150,12 @@ function getAIMove(board: Board, difficulty: Difficulty, aiPlayer: Player, human
 
   switch (difficulty) {
     case "easy": {
-      // 70% aleatorio, 30% bloquea si es obvio
       if (Math.random() < 0.7) return pickRandom(empties);
       const block = findWinningMove(board, humanPlayer);
       if (block !== null) return block;
       return pickRandom(empties);
     }
     case "medium": {
-      // 40% aleatorio, 60% juega con lógica de bloqueo/ganar
       if (Math.random() < 0.4) return pickRandom(empties);
       const win = findWinningMove(board, aiPlayer);
       if (win !== null) return win;
@@ -169,7 +167,6 @@ function getAIMove(board: Board, difficulty: Difficulty, aiPlayer: Player, human
       return pickRandom(empties);
     }
     case "hard": {
-      // 15% aleatorio para dar oportunidad, sino minimax
       if (Math.random() < 0.15) return pickRandom(empties);
       return bestMoveMinimax([...board], aiPlayer, humanPlayer);
     }
@@ -219,70 +216,70 @@ function saveStats(stats: Stats) {
 }
 
 // ---------------------------------------------------------------------------
-// Iconos
+// Iconos — IconProps extendido para aceptar todas las props nativas del SVG
 // ---------------------------------------------------------------------------
-type IconProps = { className?: string };
+type IconProps = React.SVGProps<SVGSVGElement>;
 const iconBase = "1.75";
 
-const IconX = ({ className = "w-6 h-6" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className={className}>
+const IconX = ({ className = "w-6 h-6", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className={className} {...props}>
     <path d="M6 6l12 12M18 6L6 18" />
   </svg>
 );
 
-const IconO = ({ className = "w-6 h-6" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={className}>
+const IconO = ({ className = "w-6 h-6", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={className} {...props}>
     <circle cx="12" cy="12" r="7" />
   </svg>
 );
 
-const IconGrid = ({ className = "w-6 h-6" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className}>
+const IconGrid = ({ className = "w-6 h-6", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
     <rect x="3" y="3" width="18" height="18" rx="2" />
     <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
   </svg>
 );
 
-const IconTrophy = ({ className = "w-6 h-6" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className}>
+const IconTrophy = ({ className = "w-6 h-6", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
     <path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4Z" />
     <path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" />
     <path d="M12 13v3m-3 4h6m-3 0v-4" />
   </svg>
 );
 
-const IconChart = ({ className = "w-5 h-5" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className}>
+const IconChart = ({ className = "w-5 h-5", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
     <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
   </svg>
 );
 
-const IconExit = ({ className = "w-4 h-4" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className}>
+const IconExit = ({ className = "w-4 h-4", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
     <path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 8l-4 4 4 4M6 12h11" />
   </svg>
 );
 
-const IconExpand = ({ className = "w-4 h-4" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className}>
+const IconExpand = ({ className = "w-4 h-4", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
     <path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5" />
   </svg>
 );
 
-const IconCollapse = ({ className = "w-4 h-4" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className}>
+const IconCollapse = ({ className = "w-4 h-4", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
     <path d="M4 9h5V4M20 9h-5V4M4 15h5v5M20 15h-5v5" />
   </svg>
 );
 
-const IconPlay = ({ className = "w-5 h-5" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+const IconPlay = ({ className = "w-5 h-5", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} {...props}>
     <path d="M8 5.5v13l11-6.5-11-6.5Z" />
   </svg>
 );
 
-const IconFlame = ({ className = "w-4 h-4" }: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className}>
+const IconFlame = ({ className = "w-4 h-4", ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={iconBase} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
     <path d="M12 3c2 3 4 5 4 9a4 4 0 1 1-8 0c0-1.5.5-2.5 1.5-3.5C9 10 9 11 10 11c0-3 1-5 2-8Z" />
   </svg>
 );
@@ -431,7 +428,7 @@ export default function TicTacToeGame() {
   }, [board]);
 
   // ---------------------------------------------------------------------
-  // Actualizar stats y ranking
+  // Actualizar stats
   // ---------------------------------------------------------------------
   useEffect(() => {
     if (!showResult) return;
@@ -452,7 +449,9 @@ export default function TicTacToeGame() {
     });
   }, [showResult, winner, humanPlayer, aiPlayer]);
 
-  // Registra el nombre en el ranking solo si ganó
+  // ---------------------------------------------------------------------
+  // Ranking (solo victorias)
+  // ---------------------------------------------------------------------
   const [showNameInput, setShowNameInput] = useState(false);
   const [playerName, setPlayerName] = useState("");
 
@@ -837,7 +836,7 @@ export default function TicTacToeGame() {
       {/* Modal de resultado */}
       {showResult && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className={`bg-white p-7 rounded-2xl max-w-sm w-full shadow-2xl border border-black/5 text-center`}>
+          <div className="bg-white p-7 rounded-2xl max-w-sm w-full shadow-2xl border border-black/5 text-center">
             <div className={`mx-auto mb-4 w-16 h-16 rounded-full flex items-center justify-center ${
               winner === humanPlayer ? "bg-emerald-100" : winner === aiPlayer ? "bg-red-100" : "bg-slate-100"
             }`}>
